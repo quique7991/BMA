@@ -17,6 +17,7 @@
 * Comentarios
   * Comentario
   * Timestamp
+* Es valido
 
 ## Concurso
 * ID
@@ -37,10 +38,12 @@
 * Comentarios
   * Comentario
   * Timestamp
+* Es valido
 
 ##Usuario
 * ID
 * Nombre
+* Contraseña
 * Email
 * Temas de interés
 * Links de interés:
@@ -54,8 +57,22 @@
 ##Comentarios
 * Comentario
 * Datestamp
+* id del evento
+* Tipo (evento o competencia)
+
+##Imagenes
+* Image
+* Description
+* url
+
+-> TODO: save events to user.
 
 #RESTful API
+
+##Nota
+Cuando se quiera modificar o borrar un objeto compuesto utilizando un post (JSON or ARRAY). Para mantener la interface sencilla, se va a sustituir todo el objeto compuesto.
+
+Por ejemplo si los tags en el DB son ["tecnologia","emprendimiento","medio ambiente"], si se quiere agregar "politica" y eliminar emprendimiento, se enviaria como parametro ["tecnologia","medio ambiente","politica"], es decir se tienen que reenviar todos los tags, y hacer el cambio correspondiente.
 
 ##Evento
 ###GET
@@ -64,7 +81,9 @@
 
 **Parámetros**
 * id: id del database, si se envia este no se requieren los otros parámetros
+
 Si no se envia el ID:
+
 * total: numero de eventos a retornar
 * begin: numero del primer evento a retornar
 
@@ -114,6 +133,7 @@ Si no se envia el ID:
 * contact: json con la info, ejemplo {"correo":<>,"telefono":<>,...}
 * tags: array con strings, ejemplo ["tecnologia","emprendedurismo",...]
 * user_id: id del usuario que lo creo
+* is_valid: define si el usuario quiere invalidar el evento
 
 **Ejemplo de uso**
 
@@ -130,7 +150,9 @@ Si no se envia el ID:
 
 **Parámetros**
 * id: id del database, si se envia este no se requieren los otros parámetros
+
 Si no se envia el ID:
+
 * total: numero de eventos a retornar
 * begin: numero del primer evento a retornar
 
@@ -183,6 +205,7 @@ Si no se envia el ID:
 * contact: json con la info, ejemplo {"correo":<>,"telefono":<>,...}
 * tags: array con strings, ejemplo ["tecnologia","emprendedurismo",...]
 * user_id: id del usuario que lo creo
+* is_valid: define si el creador dejo invalido al evento.
 
 **Ejemplo de uso**
 
@@ -191,3 +214,112 @@ Si no se envia el ID:
 **Ejemplo del retorno**
 
 {"response":{"id":<>}, "success": true}
+
+
+##USUARIO
+###GET
+
+**Uso:** Permite obtener la informacion del usuario (necesita estar loggeado)
+
+TODO: Se podría agregar otra función para poder buscar otros usuarios, tipo social network.
+
+**Parámetros**
+
+No se necesita ningún parámetro.
+
+**Ejemplo de uso**
+
+<base_url>/user
+
+**Ejemplo del retorno**
+
+{"response": {"id":<>,"name":<>,"email":<>,"topics":[...],"url":{"facebook":,"linkedin":,...}, "old_events":[],"new_events":[],"own_events":[]}, "success": true}
+
+###POST
+**Uso:** Permite crear un nuevo usuario.
+
+**Parámetros**
+* name: nombre del nuevo usuario [obligatorio]
+* password: password del nuevo usuario (en el frontend hay que verificarlo dos veces por si el usuario se equivoca). [obligatorio]
+* email: email del usuario [obligatorio]
+* topics: es un array de strings con los temas de interes del usuario
+* url: es un json con los lugares de interes del usuario. E.g. {"facebook":<>,"LinkedIn":<>,...}
+
+**Ejemplo de uso**
+
+<base_url>/user?prize=<>&begin_date=<>&end_date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+###PUT
+**Uso:** Permite modificar la informacion de un usuario (el usuario tiene que estar loggeado.
+
+**Parámetros** Todos los parametros son opcionales
+* name: nombre del nuevo usuario [obligatorio]
+* password: password del nuevo usuario (en el frontend hay que verificarlo dos veces por si el usuario se equivoca). [obligatorio]
+* email: email del usuario [obligatorio]
+* topics: es un array de strings con los temas de interes nuevos del usuario
+* url: es un json con los lugares de interes del usuario. E.g. {"facebook":<>,"LinkedIn":<>,...}
+
+**Ejemplo de uso**
+
+<base_url>/event?id=<>&date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+#Comentario
+
+###GET
+
+**Uso:** Permite obtener la informacion del usuario (necesita estar loggeado)
+
+TODO: Se podría agregar otra función para poder buscar otros usuarios, tipo social network.
+
+**Parámetros**
+
+No se necesita ningún parámetro.
+
+**Ejemplo de uso**
+
+<base_url>/user
+
+**Ejemplo del retorno**
+
+{"response": {"id":<>,"name":<>,"email":<>,"topics":[...],"url":{"facebook":,"linkedin":,...}, "old_events":[],"new_events":[],"own_events":[]}, "success": true}
+
+###POST
+**Uso:** Permite crear un nuevo usuario.
+
+**Parámetros**
+* Comentario
+* Datestamp
+
+**Ejemplo de uso**
+
+<base_url>/user?prize=<>&begin_date=<>&end_date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+###PUT
+**Uso:** Permite modificar la informacion de un usuario (el usuario tiene que estar loggeado.
+
+**Parámetros** 
+* id:  [obligatorio]
+* Comentario
+* Datestamp
+
+**Ejemplo de uso**
+
+<base_url>/event?id=<>&date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+
