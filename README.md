@@ -79,7 +79,7 @@ Si no se envia el ID:
 
 {"response": {"id":<>,"date":<>,"description":<>,"url":<>,"images":{"thumbnail":<>,"descriptive":<>},"contact":{...},"tags":[],"user_id":<>,"comments":[{"comment":<>,"datestamp":<>},...]}, "success": true}
 
-* Usand total and being:
+* Usand total and begin:
 
 {"response": [{"id":<>,"date":<>,"description":<>,"url":<>,"images":{"thumbnail":<>,"descriptive":<>},"contact":{...},"tags":[],"user_id":<>,"comments":[{"comment":<>,"datestamp":<>},...]},...], "success": true}
 
@@ -99,6 +99,7 @@ Si no se envia el ID:
 <base_url>/event?date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
 
 **Ejemplo del retorno**
+
 {"response":{"id":<>}, "success": true}
 
 ###PUT
@@ -119,4 +120,5 @@ Si no se envia el ID:
 <base_url>/event?id=<>&date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
 
 **Ejemplo del retorno**
+
 {"response":{"id":<>}, "success": true}
