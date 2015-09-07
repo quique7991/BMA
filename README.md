@@ -3,13 +3,14 @@
 ## Evento
 * ID
 * Fecha
-* Descripcion
+* Descripción
+* Link oficial del evento
 * Imagen:
   * Thumbnail
-  * Description Image
-* Informacion de contacto
+  * Imagen descriptiva
+* Información de contacto
   * Correo
-  * Telefono
+  * Teléfono
   * Otros
 * Tags
 * ID del usuario que lo creo
@@ -19,13 +20,14 @@
 * Premio:
 * Fecha de inicio:
 * Fecha final
-* Descripcion
+* Link oficial del evento
+* Descripción
 * Imagen:
   * Thumbnail
   * Description Image
-* Informacion de contacto
+* Información de contacto
   * Correo
-   * Telefono
+   * Teléfono
    * Otros
 * Tags
 * ID del usuario que lo creo
@@ -35,6 +37,17 @@
 * Nombre
 * Email
 * Temas de interés
+* Links de interés:
+  * Facebook
+  * LinkedIn
+  * Proyectos Propios
 * Eventos guardados antiguos
 * Nuevos eventos (use un TTL para moverlo de un lado a otro)
 * Eventos creados
+
+#RESTful API
+
+##Evento
+###GET
+
+**Uso:**
