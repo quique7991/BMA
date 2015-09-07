@@ -363,7 +363,7 @@ Estos parametros lo puede enviar cualquier usuario registrado.
 
 **Parámetros**
 * description: string con la descripcion de la imagen [obligatorio]
-* image: e.g. archivo con la imagen [obligatorio]
+* url: url con la imagen [obligatorio]
 
 **Ejemplo de uso**
 
@@ -378,11 +378,13 @@ Estos parametros lo puede enviar cualquier usuario registrado.
 
 **Parámetros** 
 * id: id de la imagen [obligatorio]
+* url:
+* description:
 * delete: boolean que define si la imagen va a ser borrada (true or false)
 
 **Ejemplo de uso**
-
-<base_url>/comment?id=<>&delete=true
+<base_url>/image?id=<>&url=<>&description=<>
+<base_url>/image?id=<>&delete=true
 
 
 **Ejemplo del retorno**
