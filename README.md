@@ -55,10 +55,12 @@
 * Eventos creados
 
 ##Comentarios
+* ID
 * Comentario
 * Datestamp
-* id del evento
-* Tipo (evento o competencia)
+* upvote
+* downvote
+* user_id
 
 ##Imagenes
 * Image
@@ -275,32 +277,34 @@ No se necesita ningún parámetro.
 
 ###GET
 
-**Uso:** Permite obtener la informacion del usuario (necesita estar loggeado)
-
-TODO: Se podría agregar otra función para poder buscar otros usuarios, tipo social network.
+**Uso:** Permite obtener los comentarios de un evento
 
 **Parámetros**
 
-No se necesita ningún parámetro.
+* activity_id: ID de la actividad. [obligatorio]
+* activity_type: e.g. "competition" o "event" [obligatorio]
+* total: numero de comentarios maximo a retornar
+* begin: numero del primer comentario a retornar
 
 **Ejemplo de uso**
 
-<base_url>/user
+<base_url>/comment?activity_id=<>&activity_type=<>&total=<>&begin=<>
 
 **Ejemplo del retorno**
 
-{"response": {"id":<>,"name":<>,"email":<>,"topics":[...],"url":{"facebook":,"linkedin":,...}, "old_events":[],"new_events":[],"own_events":[]}, "success": true}
+{"response": [{"id":<>,"comment":<>,"date":<>,"upvote":<>,"downvote":<>,"user_id":},...], "success": true}
 
 ###POST
-**Uso:** Permite crear un nuevo usuario.
+**Uso:** Permite agregar un nuevo comentario (el usuario tiene que estar loggeado)
 
 **Parámetros**
-* Comentario
-* Datestamp
+* activity_id: ID de la actividad. [obligatorio]
+* activity_type: e.g. "competition" o "event" [obligatorio]
+* Comment: el comentario que hizo el usuario. [obligatorio]
 
 **Ejemplo de uso**
 
-<base_url>/user?prize=<>&begin_date=<>&end_date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+<base_url>/comment?activity_id=<>&activity_type=<>&comment=<>
 
 **Ejemplo del retorno**
 
@@ -310,13 +314,76 @@ No se necesita ningún parámetro.
 **Uso:** Permite modificar la informacion de un usuario (el usuario tiene que estar loggeado.
 
 **Parámetros** 
-* id:  [obligatorio]
-* Comentario
-* Datestamp
+* id: id del comentario [obligatorio]
+
+Estos parametros solo pueden ser enviados si el usuario que lo esta modificando fue le mismo que creo el comentario
+
+* activity_id: ID de la actividad. [obligatorio]
+* activity_type: e.g. "competition" o "event" [obligatorio]
+* comment: el comentario que hizo el usuario.
+* delete: boolean que define si el comentario va a ser borrado (true or false)
+
+Estos parametros lo puede enviar cualquier usuario registrado.
+
+* upvote: boolean que define si el usuario esta votando a favor del comentario.
+* downvote: boolean que define si el usuario esta votando en contra del comentario
 
 **Ejemplo de uso**
 
-<base_url>/event?id=<>&date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+<base_url>/comment?id=<>&activity_id=<>&activity_type=<>&comment=<>
+<base_url>/comment?id=<>&activity_id=<>&activity_type=<>&delete=true
+<base_url>/comment?id=<>&activity_id=<>&activity_type=<>&upvote=true
+<base_url>/comment?id=<>&activity_id=<>&activity_type=<>&downvote=true
+
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+#Imagen
+
+###GET
+
+**Uso:** Permite obtener el url de la imagen y la descripcion
+
+**Parámetros**
+
+* id: ID de la imagen. [obligatorio]
+
+**Ejemplo de uso**
+
+<base_url>/image?image=<>
+
+**Ejemplo del retorno**
+
+{"response": {"id":<>,"description":<>,"url":<>}, "success": true}
+
+###POST
+**Uso:** Permite hacer el upload de la imagen (el usuario tiene que estar loggeado)
+
+**Parámetros**
+* description: string con la descripcion de la imagen [obligatorio]
+* image: e.g. archivo con la imagen [obligatorio]
+
+**Ejemplo de uso**
+
+<base_url>/image?description=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+###PUT
+**Uso:** Permite borrar la imagen (tiene que estar loggeado). El usuario que lo creo es el unico que puede borrarlo.
+
+**Parámetros** 
+* id: id de la imagen [obligatorio]
+* delete: boolean que define si la imagen va a ser borrada (true or false)
+
+**Ejemplo de uso**
+
+<base_url>/comment?id=<>&delete=true
+
 
 **Ejemplo del retorno**
 
