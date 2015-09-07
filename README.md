@@ -106,9 +106,78 @@ Si no se envia el ID:
 **Uso:** Permite modificar un evento (el usuario tiene que estar loggeado). Todos los parametros son opcionales excepto el ID.
 
 **Parámetros**
-* ID: id del evento a modificar
+* ID: id del evento a modificar [obligatorio]
 * date: fecha del evento y hora (definir formato) 
 * description: string con la definicion del evento 
+* url: url con el evento 
+* image: json con los urls, ejemplo {"thumbnail":<url1>,"descriptive":<url2>} 
+* contact: json con la info, ejemplo {"correo":<>,"telefono":<>,...}
+* tags: array con strings, ejemplo ["tecnologia","emprendedurismo",...]
+* user_id: id del usuario que lo creo
+
+**Ejemplo de uso**
+
+<base_url>/event?id=<>&date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+##Concurso
+###GET
+
+**Uso:** Permite obtener un grupo de concursos si no se especifica el id de un concurso en específico, o obtener la info de un evento específico.
+
+**Parámetros**
+* id: id del database, si se envia este no se requieren los otros parámetros
+Si no se envia el ID:
+* total: numero de eventos a retornar
+* begin: numero del primer evento a retornar
+
+**Ejemplo de uso**
+
+<base_url>/competition?id=1
+
+<base_url>/competition?total=20&begin=5
+
+**Ejemplo del retorno**
+* Usando un id:
+
+{"response": {"id":<>,"prize":<>,"begin_date":<>,"end_date":<>,"description":<>,"url":<>,"images":{"thumbnail":<>,"descriptive":<>},"contact":{...},"tags":[],"user_id":<>,"comments":[{"comment":<>,"datestamp":<>},...]}, "success": true}
+
+* Usand total and begin:
+
+{"response": [{"id":<>,"prize":<>,"begin_date":<>,"end_date":<>,"description":<>,"url":<>,"images":{"thumbnail":<>,"descriptive":<>},"contact":{...},"tags":[],"user_id":<>,"comments":[{"comment":<>,"datestamp":<>},...]},...], "success": true}
+
+###POST
+**Uso:** Permite agregar una nuevo competencia (el usuario tiene que estar loggeado)
+
+**Parámetros**
+* prize: premio a los ganadores de la competencia [obligatorio]
+* begin_date: fecha en que inicia la competencia (definir formato)
+* end_date: fecha en que termina la competencia (definir formato) [obligatorio]
+* description: string con la definicion del evento [obligatorio]
+* url: url con el evento 
+* image: json con los urls, ejemplo {"thumbnail":<url1>,"descriptive":<url2>} [opcional, cada elemento en el image es opcional]
+* contact: json con la info, ejemplo {"correo":<>,"telefono":<>,...}
+* tags: array con strings, ejemplo ["tecnologia","emprendedurismo",...]
+
+**Ejemplo de uso**
+
+<base_url>/event?prize=<>&begin_date=<>&end_date=<>&description=<>&url=<>&image={"thumbnail":<url1>,"descriptive":<url2>}&contact={"correo":<>,"telefono":<>,...}&tags=[]&user_id=<>
+
+**Ejemplo del retorno**
+
+{"response":{"id":<>}, "success": true}
+
+###PUT
+**Uso:** Permite modificar un evento (el usuario tiene que estar loggeado). Todos los parametros son opcionales excepto el ID.
+
+**Parámetros**
+* ID: id del evento a modificar [obligatorio]
+* prize: premio a los ganadores de la competencia
+* begin_date: fecha en que inicia la competencia (definir formato)
+* end_date: fecha en que termina la competencia (definir formato)
 * url: url con el evento 
 * image: json con los urls, ejemplo {"thumbnail":<url1>,"descriptive":<url2>} 
 * contact: json con la info, ejemplo {"correo":<>,"telefono":<>,...}
